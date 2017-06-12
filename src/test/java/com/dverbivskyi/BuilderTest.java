@@ -1,3 +1,6 @@
+package com.dverbivskyi;
+
+import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -27,7 +30,7 @@ public class BuilderTest {
         Root.Builder builder = new Root.Builder();
 
         Root root = builder.age(213).build();
-        assertThat(root.getAge()).isEqualTo(213);
+        Assertions.assertThat(root.getAge()).isEqualTo(213);
         //root.getAge() = 123;
         //root.setAge() - no setter
     }
@@ -40,10 +43,10 @@ public class BuilderTest {
         inputSide.add(1234L);
 
         Root root = builder.childrenIds(inputSide).build();
-        assertThat(root.getChildrenIds()).containsExactly(1234L);
+        Assertions.assertThat(root.getChildrenIds()).containsExactly(1234L);
 
         inputSide.set(0, -1L);
-        assertThat(root.getChildrenIds()).containsExactly(1234L);
+        Assertions.assertThat(root.getChildrenIds()).containsExactly(1234L);
     }
 
     @Test(expected = UnsupportedOperationException.class)
@@ -51,7 +54,7 @@ public class BuilderTest {
         Root.Builder builder = new Root.Builder();
 
         Root root = builder.childrenIds(Collections.singletonList(1234L)).build();
-        assertThat(root.getChildrenIds()).containsExactly(1234L);
+        Assertions.assertThat(root.getChildrenIds()).containsExactly(1234L);
 
         root.getChildrenIds().add(-1L);
     }
@@ -62,8 +65,8 @@ public class BuilderTest {
                 .age(12)
                 .childrenIds(null).build();
 
-        assertThat(root.getAge()).isEqualTo(12);
-        assertThat(root.getChildrenIds()).isEmpty();
+        Assertions.assertThat(root.getAge()).isEqualTo(12);
+        Assertions.assertThat(root.getChildrenIds()).isEmpty();
     }
 
     @Test(expected = UnsupportedOperationException.class)
@@ -71,7 +74,7 @@ public class BuilderTest {
         Root root = new Root.Builder()
                 .childrenIds(null).build();
 
-        assertThat(root.getChildrenIds()).isEmpty();
+        Assertions.assertThat(root.getChildrenIds()).isEmpty();
 
         root.getChildrenIds().add(12L);
     }

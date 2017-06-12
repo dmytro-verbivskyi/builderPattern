@@ -1,3 +1,5 @@
+package com.dverbivskyi;
+
 import com.google.common.collect.ImmutableList;
 
 import java.util.Collections;
@@ -8,7 +10,7 @@ public class Root {
     private int age;
     private List<Long> childrenIds;
 
-    private Root(Builder builder) {
+    protected Root(Builder builder) {
         age = builder.age;
         childrenIds = builder.childrenIds;
     }
@@ -21,7 +23,7 @@ public class Root {
         return childrenIds;
     }
 
-    public static class Builder {
+    public static class Builder<T extends Builder> {
         private int age;
         private List<Long> childrenIds;
 
@@ -29,16 +31,16 @@ public class Root {
             return new Root(this);
         }
 
-        public Builder age(int age) {
+        public T age(int age) {
             this.age = age;
-            return this;
+            return (T) this;
         }
 
-        public Builder childrenIds(List<Long> childrenIds) {
+        public T childrenIds(List<Long> childrenIds) {
             this.childrenIds = (childrenIds == null) ?
                     Collections.<Long>emptyList() :
                     ImmutableList.copyOf(childrenIds);
-            return this;
+            return (T) this;
         }
     }
 
